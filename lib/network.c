@@ -1,4 +1,3 @@
-// network.c
 #include "network.h"
 #include <stdio.h>
 #include <string.h>
@@ -6,6 +5,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <errno.h>
+#include <pthread.h> // Include for pthreads
 
 int create_server_socket(int port) {
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -48,4 +48,21 @@ int accept_client(int server_socket) {
 
 void close_socket(int socket) {
     close(socket);
+}
+
+// Function to handle communication with a client
+void *handle_client(void *client_socket_ptr) {
+    int client_socket = *(int *)client_socket_ptr;
+    free(client_socket_ptr); // Free the dynamically allocated memory
+
+    char buffer[1024];
+    int bytes_received;
+
+    while ((bytes_received = receive_data(client_socket, buffer, sizeof(buffer))) > 0) {
+        // Echo the received data back to the client (for demonstration purposes)
+        send_data(client_socket, buffer, bytes_received);
+    }
+
+    close_socket(client_socket);
+    return NULL;
 }

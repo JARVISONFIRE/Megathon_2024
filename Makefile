@@ -2,10 +2,10 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -g -I include  # Adding -I include to specify include directory
+CFLAGS = -Wall -g -I include -pthread  # Add -pthread for multi-threading support
 
 # Linker flags
-LDFLAGS = -lraylib -lm -ldl -lpthread -lX11  # Link Raylib and other necessary libraries
+LDFLAGS = -lraylib -lm -ldl -lpthread  # Include any necessary libraries for Raylib
 
 # Directories
 SRC_DIR = src
