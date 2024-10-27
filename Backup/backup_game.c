@@ -167,6 +167,7 @@ void InitGame() {
 
     if (!towerPlaced) {
         PlaceTower((Vector2){SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2});
+        towers[0].health=15;
         towerPlaced = true;
     }
 }
